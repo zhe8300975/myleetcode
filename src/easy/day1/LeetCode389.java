@@ -1,4 +1,4 @@
-package easy;
+package easy.day1;
 
 //给定两个字符串 s 和 t，它们只包含小写字母。
 //
