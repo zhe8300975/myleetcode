@@ -1,4 +1,4 @@
-package medium;
+package medium.day2;
 
 import java.util.*;
 
