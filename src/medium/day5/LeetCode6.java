@@ -2,16 +2,22 @@ package medium.day5;
 
 public class LeetCode6 {
     public static void main(String[] args) {
-        System.out.println(convert("LEETCODEISHIRING", 4));
+        System.out.println(convert("LEETCODEISHIRING", 1));
     }
 
     public static String convert(String s, int numRows) {
+        if(numRows==1){
+            return s;
+        }
         char[] chars = new char[s.length()];
         int index = 0;
         for (int i = 0; i < numRows && i < s.length(); i++) {
-            int stepping = 2 * (numRows - i - 1) > 0 ? 2 * (numRows - i - 1) : 2 * (numRows - 1);
-            for (int k = i; k < s.length(); k += stepping) {
-                chars[index++] = s.charAt(k);
+            for (int column = 0; column * (numRows - 1)*2 + i < s.length(); column++) {
+                chars[index++] = s.charAt(column * (numRows - 1)*2 + i);
+                int k = (column + 1) * (numRows - 1)*2 - i;
+                if (i != 0 && i != numRows - 1 && k < s.length()) {
+                    chars[index++] = s.charAt(k);
+                }
             }
         }
         return new String(chars);
