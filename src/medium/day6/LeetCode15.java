@@ -12,19 +12,19 @@ public class LeetCode15 {
 
 
     public static void main(String[] args) {
-        System.out.println(threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
+        System.out.println(threeSum(new int[]{0, 0, 0}));
     }
 
     public static List<List<Integer>> threeSum(int[] nums) {
         ArrayList<List<Integer>> result=new ArrayList();
         Arrays.sort(nums);
         int l=nums.length;
-        for(int i=0;i<l-3;i++){
+        for(int i=0;i<l-2;i++){
             if(i!=0&&nums[i]==nums[i-1]){
                 continue;
             }
             int end=l-1;
-            for(int start = i+1;start<l-2;start++){
+            for(int start = i+1;start<l-1;start++){
                 if(start!=i+1&&nums[start]==nums[start-1]){
                     continue;
                 }
@@ -45,5 +45,7 @@ public class LeetCode15 {
             }
         }
         return result;
+
     }
+
 }
