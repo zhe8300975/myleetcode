@@ -10,14 +10,41 @@ package medium.day10;
 //3,2,1 → 1,2,3
 //1,1,5 → 1,5,1
 
+
+import java.util.Arrays;
+
 public class LeetCode31 {
 
 
-    public static void main(String [] args){
-
+    public static void main(String[] args) {
+        int[] nums = new int[]{3,2,1};
+        nextPermutation(nums);
+        System.out.println(Arrays.toString(nums));
     }
 
     public static void nextPermutation(int[] nums) {
+        int i = 0;
+        for (i = nums.length - 1; i > 0; i--) {
+            if (nums[i - 1] < nums[i]) {
+                break;
+            }
+        }
+        for (int k = nums.length - 1;i>0& k > i - 1; k--) {
+            if (nums[i - 1] < nums[k]) {
+                nums[i - 1] = nums[i - 1] + nums[k];
+                nums[k] = nums[i - 1] - nums[k];
+                nums[i - 1] = nums[i - 1] - nums[k];
+                break;
+            }
+        }
+        for (int k = 0; k < (nums.length-i)/2; k++) {
+            int lastIndex = nums.length - 1 - k;
+            nums[i+k] = nums[i+k] + nums[lastIndex];
+            nums[lastIndex] = nums[i+k] - nums[lastIndex];
+            nums[i+k] = nums[i+k] - nums[lastIndex];
+        }
+
 
     }
+
 }
