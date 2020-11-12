@@ -5,15 +5,56 @@ package easy.day9;
 
 public class LeetCode617 {
     public static void main(String[] agrs) {
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node12 = new TreeNode(2);
+        TreeNode node13 = new TreeNode(3);
+        TreeNode node14 = new TreeNode(4);
+        TreeNode node15 = new TreeNode(5);
+        node1.left = node12;
+        node1.right = node13;
+        node12.left = node14;
+        node14.left = node15;
 
+        TreeNode node2 = new TreeNode(1);
+        TreeNode node22 = new TreeNode(2);
+        TreeNode node23 = new TreeNode(3);
+        TreeNode node24 = new TreeNode(4);
+        TreeNode node25 = new TreeNode(5);
+        node2.left = node22;
+        node2.right = node23;
+        node22.right = node24;
+        node24.right = node25;
+        TreeNode node = mergeTrees(node1, node2);
+        printTree(node);
+    }
+
+    public static void printTree(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(node.val);
+        printTree(node.left);
+        printTree(node.right);
     }
 
     public static TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
-        if(t1!=null)
+        if (t1 == null && t2 == null) {
+            return null;
+        }
+        if (t1 == null && t2 != null) {
+            return t2;
+        }
+        if (t2 == null && t1 != null) {
+            return t1;
+        }
+        TreeNode node = new TreeNode(t1.val + t2.val);
+        node.left = mergeTrees(t1.left, t2.left);
+        node.right = mergeTrees(t1.right, t2.right);
+        return node;
 
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
