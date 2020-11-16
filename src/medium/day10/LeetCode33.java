@@ -7,30 +7,37 @@ package medium.day10;
 //请你在数组中搜索 target ，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
 public class LeetCode33 {
     public static void main(String[] args) {
-        System.out.println(search(new int[]{1,3}, 2));
+        System.out.println(search(new int[]{3, 1}, 1));
     }
 
 
     public static int search(int[] nums, int target) {
-        int start = 0;
-        int end = nums.length - 1;
-        while (end > start) {
-            int mid = (end + start) / 2;
+        int length = nums.length;
+        if (length == 0) {
+            return -1;
+        }
+        if (length == 1) {
+            return nums[0] == target ? 0 : -1;
+        }
+
+        int start = 0, end = length - 1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
             if (nums[mid] == target) {
                 return mid;
-            }
-            if (nums[mid] > nums[start] && nums[mid] > nums[end]) {
-                start = mid;
-            } else if (nums[mid] < nums[start] && nums[mid] < nums[end]) {
-                end = mid;
-            } else if (nums[mid] < target) {
-                start = mid+1;
+            } else if (nums[start] <= nums[mid]) {
+                if (target >= nums[start] && target < nums[mid]) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
             } else {
-                end = mid-1;
+                if (target > nums[mid] && target <= nums[end]) {
+                    start = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
             }
-        }
-        if (end == start && nums[start] == target) {
-            return start;
         }
         return -1;
     }
