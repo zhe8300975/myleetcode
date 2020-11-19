@@ -14,25 +14,39 @@ package medium.day13;
 public class LeetCode55 {
 
     public static void main(String[] args) {
-        System.out.println(canJump(new int[]{3,2,1,0,4}));
+        System.out.println(canJump(new int[]{2, 3, 1, 1, 4}));
     }
 
     public static boolean canJump(int[] nums) {
-        return canJump(nums, 0);
-    }
-
-    public static boolean canJump(int[] nums, int index) {
-        if (index == nums.length - 1) {
-            return true;
-        } else if (index > nums.length - 1) {
-            return false;
-        } else {
-            for (int step = 1; step <= nums[index]; step++) {
-                if (canJump(nums, index + step)) {
+        int max = 0;
+        for (int index = 0; index < nums.length; index++) {
+            if (index <= max) {
+                max = Math.max(max, nums[index] + index);
+                if (max >= nums.length - 1) {
                     return true;
                 }
             }
         }
         return false;
     }
+
+
+//    public static boolean canJump(int[] nums) {
+//        return canJump(nums, 0);
+//    }
+//
+//    public static boolean canJump(int[] nums, int index) {
+//        if (index == nums.length - 1) {
+//            return true;
+//        } else if (index > nums.length - 1) {
+//            return false;
+//        } else {
+//            for (int step = 1; step <= nums[index]; step++) {
+//                if (canJump(nums, index + step)) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 }
