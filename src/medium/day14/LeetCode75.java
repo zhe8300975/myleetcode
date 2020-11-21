@@ -8,11 +8,35 @@ package medium.day14;
 //你可以不使用代码库中的排序函数来解决这道题吗？
 //你能想出一个仅使用常数空间的一趟扫描算法吗？
 
+import java.util.Arrays;
+
 public class LeetCode75 {
 
+    public static void main(String[] args){
+        int [] nums={2,0,2,1,1,0};
+        sortColors(nums);
+        System.out.println(Arrays.toString(nums));
+    }
 
     public static void sortColors(int[] nums) {
-        int index0=0,index1=0,index2=0;
-
+        int index0 = 0, index1 = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                int swap = nums[index1];
+                nums[index1] = nums[i];
+                nums[i] = swap;
+                index1++;
+            } else if (nums[i] == 0) {
+                int swap = nums[index0];
+                nums[index0] = nums[i];
+                nums[i] = swap;
+                if (index0 != index1) {
+                    nums[i] = nums[index1];
+                    nums[index1] = swap;
+                }
+                index0++;
+                index1++;
+            }
+        }
     }
 }
