@@ -22,6 +22,7 @@ public class LeetCode98 {
         TreeNode node10 = new TreeNode(10);
         TreeNode node15 = new TreeNode(15);
         TreeNode node20 = new TreeNode(20);
+        TreeNode node = new TreeNode(2147483647);
         node10.left = node5;
         node10.right = node15;
         node15.left = node6;
@@ -30,27 +31,20 @@ public class LeetCode98 {
 //        node5.left=node1;
 //        node5.left=node1;
 //        node5.left=node1;
-        System.out.println(isValidBST(node10));
+        System.out.println(isValidBST(node));
     }
 
     public static boolean isValidBST(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-        return isCheck(root.left, root.val, Integer.MIN_VALUE, true) && isCheck(root.right, Integer.MAX_VALUE, root.val, false);
+        return isCheck(root, null, null);
     }
 
 
-    public static boolean isCheck(TreeNode root, int upper, int lower, boolean isLeft) {
+    public static boolean isCheck(TreeNode root, Integer upper, Integer lower) {
         if (root == null) {
             return true;
         } else {
-            if (root.val > lower && root.val < upper) {
-                if (isLeft) {
-                    return isCheck(root.left,  root.val, lower, true) && isCheck(root.right, upper, root.val, false);
-                } else {
-                    return isCheck(root.left, root.val, min, true) && isCheck(root.right, max, root.val, false);
-                }
+            if ((lower == null || root.val > lower) && (upper == null || root.val < upper)) {
+                return isCheck(root.left, root.val, lower) && isCheck(root.right, upper, root.val);
             } else {
                 return false;
             }
