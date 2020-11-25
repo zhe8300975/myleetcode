@@ -1,5 +1,7 @@
 package medium.day16;
 
+import java.util.LinkedList;
+
 //给定一个二叉树，判断其是否是一个有效的二叉搜索树。
 //
 //假设一个二叉搜索树具有如下特征：
@@ -34,23 +36,44 @@ public class LeetCode98 {
         System.out.println(isValidBST(node));
     }
 
+
     public static boolean isValidBST(TreeNode root) {
-        return isCheck(root, null, null);
-    }
-
-
-    public static boolean isCheck(TreeNode root, Integer upper, Integer lower) {
-        if (root == null) {
-            return true;
-        } else {
-            if ((lower == null || root.val > lower) && (upper == null || root.val < upper)) {
-                return isCheck(root.left, root.val, lower) && isCheck(root.right, upper, root.val);
-            } else {
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        double inorder = -Double.MAX_VALUE;
+        while ((!stack.isEmpty()||root!=null)) {
+            while (root != null){
+                stack.push(root);
+                root=root.left;
+            }
+            root=stack.pop();
+            if(root.val<=inorder){
                 return false;
             }
-
+            inorder=root.val;
+            root=root.right;
         }
+        return true;
     }
+
+
+
+//    public static boolean isValidBST(TreeNode root) {
+//        return isCheck(root, null, null);
+//    }
+//
+//
+//    public static boolean isCheck(TreeNode root, Integer upper, Integer lower) {
+//        if (root == null) {
+//            return true;
+//        } else {
+//            if ((lower == null || root.val > lower) && (upper == null || root.val < upper)) {
+//                return isCheck(root.left, root.val, lower) && isCheck(root.right, upper, root.val);
+//            } else {
+//                return false;
+//            }
+//
+//        }
+//    }
 
     public static class TreeNode {
         int val;
