@@ -37,16 +37,67 @@ public class LeetCode146 {
         int size;
 
         public LRUCache(int capacity) {
+            head = new Node();
+            last = new Node();
+            head.next = last;
+            last.pre = head;
             map = new HashMap<>();
             size = capacity;
         }
 
         public int get(int key) {
-//
+            Node node = map.get(key);
+            if (node != null) {
+                removeNode(node);
+                addToLast(node);
+                return node.value;
+            } else {
+                return -1;
+            }
         }
 
         public void put(int key, int value) {
+            Node node = map.get(key);
+            if (node == null) {
+                Node node1 = new Node();
+                node1.value = value;
+                node1.key = key;
+                addToLast(node1);
+            } else {
+                removeNode(node);
+                node.value=value;
+                addToLast(node);
+            }
         }
+
+        public void addToLast(Node node) {
+            if (size == map.size()) {
+                removeHead();
+            }
+            last.pre.next = node;
+            node.pre = last.pre;
+            last.pre = node;
+            node.next = last;
+            map.put(node.key, node);
+        }
+
+        public void removeHead() {
+            if (size >= 1) {
+                Node node = head.next;
+                head.next = head.next.next;
+                head.next.pre = head;
+                map.remove(node.key);
+            }
+        }
+
+        public void removeNode(Node node) {
+            if (size >= 1) {
+                node.pre.next = node.next;
+                node.next.pre = node.pre;
+                map.remove(node.key);
+            }
+        }
+
 
         public static class Node {
             public int key;
