@@ -30,7 +30,7 @@ public class Utils {
             int levelCount = queue.size();
             for (int i = 0; i < levelCount; i++) {
                 TreeNode node = queue.pollFirst();
-                System.out.println(node.val);
+                System.out.print(node.val + "-");
                 if (node.left != null) {
                     queue.offerLast(node.left);
                 }
@@ -39,6 +39,7 @@ public class Utils {
                 }
             }
         }
+        System.out.println();
 
     }
 
